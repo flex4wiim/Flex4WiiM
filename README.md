@@ -29,7 +29,15 @@ Available controls depend on the device model, firmware and playback source. App
 
 Download and user guide
 
-The public APK release is being prepared. Once available, downloads will be provided through this repository’s Releases page.
+Limited Early Release
+
+Flex4WiiM is now available as a limited early release for a small number of users.
+
+This early release is intended to help identify bugs, test compatibility across different WiiM devices, and gather feedback for further improvements. Some bugs or compatibility issues may still exist.
+
+"Download APK (GitHub Releases)" (https://github.com/flex4wiim/Flex4WiiM/releases)
+
+Please read the installation instructions in the user guide before installing the app.
 
 The user guide includes installation instructions and detailed explanations of the app’s features.
 
@@ -46,7 +54,11 @@ Feedback
 
 Questions, suggestions and issue reports are welcome in the WiiM Community Forum thread.
 
-Forum thread: [link to be added]
+"WiiM Community Forum — Flex4WiiM Discussion" (https://forum.wiimhome.com/threads/%E2%9D%A4-wiim-controller-for-android-f4w.10640/)
+
+I’d be very interested to hear which features would be useful in your setup and anything that could be simpler or clearer.
+
+Feedback about device compatibility, unexpected behavior, bugs, or suggestions for improvement would be greatly appreciated.
 
 This repository provides app downloads and documentation. Application source code is not included.
 
