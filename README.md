@@ -34,6 +34,7 @@ The public APK release is being prepared. Once available, downloads will be prov
 The user guide includes installation instructions and detailed explanations of the app’s features.
 
 User guide: https://flex4wiim.github.io/Flex4WiiM/
+
 Privacy policy: [link to be added]
 
 ## Feedback
