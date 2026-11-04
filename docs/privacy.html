@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flex4WiiM 1.1.39 — Privacy Policy &amp; Data Handling</title><style>body{font:17px/1.65 system-ui,sans-serif;color:#242434;background:#fafafa;margin:0}main{max-width:860px;margin:auto;padding:32px 22px 72px}h1{font-size:2rem;line-height:1.25}h2{font-size:1.35rem;margin-top:2.4em}p,li{overflow-wrap:anywhere}a{color:#433191}nav{font-size:15px;padding:14px 0;border-bottom:1px solid #ddd}li{margin:.5em 0}@media(max-width:480px){main{padding:18px}h1{font-size:1.65rem}}</style></head><body><main><nav aria-label="Documentation"><a href="privacy.html">Privacy</a> · <a href="permissions.html">Permissions</a> · <a href="technical-notes.html">Technical notes</a> · <a href="disclaimer.html">Disclaimer</a></nav><h1>Flex4WiiM 1.1.39 — Privacy Policy &amp; Data Handling</h1>
+<p>Privacy Policy, Android Permissions &amp; Data Handling<br>Data handling for version 1.1.39</p>
+<p>Reviewed application version: 1.1.39<br>Last updated: November 4, 2026</p>
+<p>Flex4WiiM (F4W) is an independently developed, unofficial Android application designed to control WiiM devices over your home network.</p>
+<p>This document explains what information the app uses, why it requests certain Android permissions, how it communicates with other devices, and where your data is stored.</p>
+<p>F4W is designed to operate primarily within your home network, without requiring a developer-operated cloud account or server.</p>
+<p>The information below is based on a review of the v1.1.39 application source code and Android permission declarations. It does not represent an independent security audit.</p>
+<h2>1. What Information Does F4W Use?</h2>
+<p>F4W uses information needed to operate your WiiM devices and provide the features you choose to use. This may include:</p>
+<p>Device information: WiiM device names, local IP addresses, device identifiers, and connection information.</p>
+<p>Groups and Scenes: Saved group configurations, stereo pairs, Scenes, presets, home theater settings, and related settings.</p>
+<p>Playback information: Track titles, artists, albums, artwork, playback status, and available audio metadata.</p>
+<p>Music library information: Metadata from music files stored on your Android device or accessible through compatible media servers, folder references, and relevant browsing and playback history.</p>
+<p>User preferences: Layouts, themes, custom images, alarms, stream URLs, widget selections, per-device/group direct-volume values, and the full-screen device-icon display setting.</p>
+<p>Monitoring and manual home theater information: Saved rules, reference speaker volume/mute values, optional follower channel assignments, and a limited connection-event history described in Section 5.</p>
+<p>App settings and saved configurations are stored locally on your Android device. Some playback information is held temporarily in memory rather than saved permanently.</p>
+<h2>2. Android Permissions and Why They Are Needed</h2>
+<p>Some permissions are granted automatically by Android, while others require your approval. The permissions you see may vary depending on your Android version and the features you use.</p>
+<p>Internet Access — Communicate with WiiM devices, local media servers, streaming sources, and artwork providers.<br>Wi-Fi State — Check Wi-Fi information to support communication with devices on your home network.<br>Wi-Fi Multicast — Discover compatible WiiM devices and UPnP/DLNA media servers on your local network.<br>Audio File Access — Read music files in your Android device&#x27;s Music folder for My Music playback. Android 13 and later use music/audio access; Android 12 and earlier use storage-read permission. The app&#x27;s music queries are limited to audio.<br>Exact Alarms — Run scheduled Scene alarms at the requested time, subject to Android restrictions.<br>Run at Startup — Support alarm registration after device startup or app updates.<br>Foreground Services — Support ongoing device monitoring, local music streaming, and other operations that need to continue while the app is in the background. The app also declares the connected-device foreground-service permission required on applicable Android versions.<br>Notifications — Display playback controls, monitoring status, alarms, and relevant service notifications.<br>Wake Lock — Support necessary background operations and optional screen-on behavior.</p>
+<p>Permissions F4W Does Not Request</p>
+<p>The current application does not declare permissions to access your microphone, camera, precise or approximate location, or contacts.</p>
+<p>When you choose a custom image, Android&#x27;s system file or photo picker is used. You can review or change applicable permissions through Android Settings.</p>
+<p>For ongoing monitoring, the app can open Android&#x27;s battery-optimization settings. Any change to those settings is made by you through Android; the app does not silently grant itself an exemption. Background operation still depends on Android and device-manufacturer restrictions.</p>
+<h2>3. Network Communication</h2>
+<p>WiiM Device Control and Discovery</p>
+<p>F4W communicates with registered WiiM devices using their private IP addresses on your home network. Its WiiM control API connections use HTTPS; UPnP/DLNA traffic is described separately below.</p>
+<p>During initial discovery and registration, F4W may read device-reported names, model information, identifiers, playback status and group membership before you approve the connection. For these limited read-only HTTPS requests, it temporarily matches the certificate fingerprint observed at that address. This initial observation does not authenticate the device or save it as trusted. No playback or volume commands are sent through this inspection path. To register one or multiple devices, review the information, tick the initially unchecked confirmation and choose the add action. F4W then saves the exact inspected certificate fingerprints for the selected devices and checks them on subsequent control connections. A changed certificate for an already trusted address requires separate confirmation and is not silently replaced by bulk registration. Device-reported names and models are identification hints, not proof of authenticity.</p>
+<p>This helps detect unexpected changes, but you should still verify that the device and IP address belong to your own WiiM system before approving them.</p>
+<p>Automatic discovery, including bulk registration, may query discovered local devices for their names, identities, and connection status. To find speakers that do not respond individually while grouped, F4W also reads connected-member lists from discovered or already registered devices as part of read-only inspection. These lists may provide member names, local IP addresses, and device identifiers. The app combines them with discovery results without disconnecting or activating groups. Member identifiers obtained this way are checked against the device itself during bulk registration. Bulk registration saves the devices you select and successfully confirm; it does not create a developer-operated cloud inventory. If you choose to import persistent groups from WiiM Home, F4W reads saved group lists and device identities from selected or already registered local devices. It matches group members by device identifier and stores imported group names, membership, and the original WiiM group ID locally. The original group ID is also included in settings backups and is used to avoid duplicate imports. Importing these registrations does not itself activate, disconnect, or modify groups on WiiM devices.</p>
+<p>UPnP/DLNA and Home Music Share</p>
+<p>F4W can discover compatible media servers on your local network, including NAS devices, computers, or supported WiiM devices sharing music from attached USB storage. It browses their libraries and sends playback instructions to the selected WiiM device.</p>
+<p>Music is normally transferred directly from the media server to WiiM, rather than relayed through your Android device. Using the audio analyzer can create an additional source connection, as described in Section 4.</p>
+<p>Some UPnP/DLNA discovery, browsing, playback control, and metadata requests use unencrypted local-network communication, including HTTP. Library searches query the selected media server; they are not sent to an external search engine.</p>
+<p>My Music</p>
+<p>When playing music stored on your Android device, F4W makes the selected audio available to the chosen WiiM device over your local network. The app uses a temporary HTTP server, with access restricted to the selected WiiM device&#x27;s IP address and a randomized resource path.</p>
+<p>The audio is not uploaded to a developer-operated cloud server. This local HTTP transfer is not encrypted. Your Android device must remain available on the network while this playback feature is in use. The original music files are not modified or deleted by playback.</p>
+<p>Open Network Stream and Album Artwork</p>
+<p>When you register an internet radio station or another direct streaming URL, F4W sends playback requests to the selected WiiM device. Depending on the feature being used, F4W may also connect directly to the streaming provider.</p>
+<p>F4W may retrieve artwork from URLs provided by WiiM devices or music sources. Those requests may involve external servers.</p>
+<p>Streaming and artwork providers may receive technical information such as your connection&#x27;s public IP address and the requested resource. Their own privacy policies and service terms apply. HTTP sources are not encrypted.</p>
+<p>Background Monitoring and Android Media Controls</p>
+<p>When you enable home theater automatic monitoring, F4W periodically reads the configured devices&#x27; playback, input, and group status, and may change group configuration or speaker volume/mute settings according to your saved rules.</p>
+<p>While monitoring remains active, it may continue trying to reconnect after a temporary read-connection failure. These attempts contact the configured local devices. You can stop monitoring using the app&#x27;s monitoring controls. Stopping monitoring is not the same as restoring the speakers&#x27; previous settings.</p>
+<p>Optional Android media controls can also require periodic communication with registered devices while the app is in the background. Playback information, artwork, and device or group names may appear in Android notifications or on the lock screen, depending on your settings.</p>
+<p>Manual Home Theater Switching (Beta)</p>
+<p>Two separate, optional settings apply follower volume correction and channel assignments when you activate a home theater group through a group icon or a Scene in the app. These settings are separate from automatic monitoring and default to off. The manual path is excluded from headless scheduled-alarm execution.</p>
+<p>The app stores a local operation record containing group/device references, device identifiers, the configuration signature, and before/target volume, mute and channel values as applicable. These records support verification and conditional restoration when leaving the group. Restoration depends on device identity, the current group configuration and the observed values; it is not guaranteed. External changes may be preserved, and a changed group configuration can cause the record to be discarded without restoration commands. This feature communicates with the configured local devices, not a developer server.</p>
+<h2>4. Audio Analyzer and DSP Information</h2>
+<p>F4W includes an experimental audio analyzer and DSP/headroom analysis features.</p>
+<p>For supported sources, the analyzer may read or decode audio on your Android device to calculate signal measurements. Analyzing a network stream or shared music file may create an additional connection to the source, increasing network traffic and potentially introducing a timing difference from WiiM playback.</p>
+<p>The analyzer does not record sound through your microphone or capture other apps&#x27; audio output, including Spotify. It does not directly capture the audio output of WiiM or measure the signal after WiiM&#x27;s EQ, RoomFit, or other DSP processing.</p>
+<p>Analysis is performed on the Android device. Analyzed audio and PCM are not uploaded to a developer-operated service. Temporary file caching, where used, is bounded and removed when the analysis session ends. Analysis connections are closed when analysis is stopped or hidden.</p>
+<p>DSP/headroom estimates use available device settings and theoretical models. They are reference values, not direct measurements of actual amplifier output or clipping.</p>
+<h2>5. Data Storage and Backup</h2>
+<p>Local Settings and History</p>
+<p>F4W stores registered devices, groups, Scenes, alarms, stream URLs, images, interface preferences, and relevant browsing/playback history locally. Music Scenes can include folder or media-server references and a local Android-device identifier used to identify the playback source.</p>
+<p>Home theater settings can include reference speaker volume/mute values, monitoring rules, follower correction values and channel assignments. Manual switching also keeps the local operation record described above. Settings exports may contain home theater configuration and session/reference data; treat them as sensitive device-control records, not just appearance preferences.</p>
+<p>Monitoring Connection History</p>
+<p>To help investigate monitoring interruptions, F4W keeps up to 40 recent monitoring-event entries locally. These may contain:</p>
+<p>Event dates and times, such as monitoring start, connection failure, recovery, and stop.</p>
+<p>Local device IP addresses, requested operations, available playback/input/group status, and error or stop details.</p>
+<p>Android screen-on, device-idle, battery-saver, and battery-optimization-exemption status.</p>
+<p>Older entries are replaced as new events are recorded. Entries are not automatically deleted after a fixed number of days; they remain until replaced or the app&#x27;s data is cleared.</p>
+<p>This history is not automatically uploaded to the developer and is not included in the app&#x27;s settings JSON backup. You can view it and choose Copy to place it on Android&#x27;s clipboard. Copying does not itself send it to the developer. If you paste it into a forum, message, or another app, that action shares it outside F4W.</p>
+<p>Home-Screen Widgets</p>
+<p>Widget configuration is stored locally and can include the selected Scene or preset, target-device references, labels, and artwork. Scene names, categories, preset labels, and images are supplied to the Android home-screen launcher for display.</p>
+<p>People who can view your home screen may see this information. Tapping a configured button opens F4W and requests the selected action, subject to the app&#x27;s target checks.</p>
+<p>Widget placement/bindings are not included in the app&#x27;s settings JSON backup and may need to be recreated after resetting or moving to another device. Widget resizing does not introduce a separate developer-operated data-collection service.</p>
+<p>Backup and Restore</p>
+<p>Android automatic app-data backup is disabled in the application manifest. You can explicitly export settings to a JSON file and restore supported settings later. Depending on your configuration, the export may contain:</p>
+<p>Device names, local IP addresses, and relevant device references.</p>
+<p>Groups, Scenes, and source/folder references saved within Scenes.</p>
+<p>Streaming URLs and custom images.</p>
+<p>Layout, interface, external-app shortcut, and home theater rule settings.</p>
+<p>Exported files are not encrypted. Streaming URLs may contain private access tokens or other sensitive information. Review and store backups carefully before sharing them.</p>
+<p>The settings export is not a complete copy of every item of app data. Certificate-trust records, widget bindings, and the monitoring connection history are not included. Audio files themselves are not included.</p>
+<p>Deleting Your Data</p>
+<p>You can remove local app data by resetting F4W, clearing its data through Android Settings, or uninstalling it. This includes locally stored monitoring history and widget configuration. Available history-clear controls can remove the histories they specifically manage.</p>
+<p>These actions do not factory-reset WiiM devices or automatically remove exported backups, copied clipboard contents, screenshots, or feedback already shared outside the app. Manage those copies separately. They also do not delete your original music files.</p>
+<h2>6. Developer Servers, Advertising, and Analytics</h2>
+<p>Based on the reviewed v1.1.39 source code:</p>
+<p>No developer-operated cloud account or proprietary backend service was identified.</p>
+<p>No advertising SDK was identified.</p>
+<p>No third-party analytics SDK was identified.</p>
+<p>No automatic developer-operated telemetry upload or usage-reporting service was identified.</p>
+<p>F4W does not require an account with the developer. The local monitoring history described above is a diagnostic feature, not an automatic upload service.</p>
+<p>The app may communicate with WiiM devices, media servers, streaming providers, and artwork servers as described above. Those services may process connection information according to their own policies.</p>
+<h2>7. Voluntary Feedback</h2>
+<p>You may voluntarily report bugs, compatibility issues, or unexpected behavior. This policy does not announce a release or imply approval by WiiM.</p>
+<p>Check screenshots, diagnostic history, and exported files before sharing them. They may contain device names, local IP addresses, playback details, streaming URLs, or other information about your network. Remove information you do not wish to disclose, particularly private tokens in URLs.</p>
+<p>Feedback is not automatically uploaded through a developer-operated reporting service identified in the reviewed code. Copying diagnostic text is optional; sending or posting it requires a separate action by you.</p>
+<p>If you voluntarily submit feedback through the WiiM Community Forum or another communication channel, it is handled separately from the app&#x27;s local storage and is subject to that channel&#x27;s policies. Public posts may be visible to other people. Resetting or uninstalling F4W does not delete those submissions.</p>
+<p>For information about the developer&#x27;s handling or retention of feedback, or to request deletion of a copy held by the developer, contact Wiimer through the WiiM Community Forum. This document does not establish a fixed retention period for feedback stored outside the app.</p>
+<h2>8. Security Considerations and Limitations</h2>
+<p>F4W includes measures intended to reduce unnecessary access and communication, including:</p>
+<p>Restricting WiiM control to private network addresses and supported commands.</p>
+<p>Using HTTPS and certificate fingerprint verification for WiiM control API connections.</p>
+<p>Limiting access to the temporary My Music streaming server.</p>
+<p>Restricting direct file access from the embedded WebView.</p>
+<p>Keeping settings locally rather than relying on a developer-operated cloud backend.</p>
+<p>Some local media communication uses unencrypted HTTP. These measures do not make an untrusted network safe.</p>
+<p>F4W has not undergone a comprehensive independent security audit or penetration test. Testing across all Android devices, WiiM models, firmware versions, and network environments has not been completed. Background monitoring, reconnection, and alarms may be interrupted by network conditions or Android power-management restrictions.</p>
+<p>Use a trusted home network, begin with a low playback volume, and verify the actual device/group configuration after switching. Group activation, Scenes, presets, and automatic monitoring can change real speaker settings and volume.</p>
+<h2>9. Developer and Contact Information</h2>
+<p>Application: Flex4WiiM (F4W)<br>Reviewed version: 1.1.39<br>Platform: Android 9 or later<br>Developer: Wiimer<br>Support and feedback: WiiM Community Forum<br>Contact: Wiimer<br>Last updated: November 4, 2026</p>
+<p>This document is updated when relevant data-handling behavior or disclosures change; an app version change alone does not necessarily require a change to the policy&#x27;s substance.</p>
+<p>Flex4WiiM is an independent, unofficial application. It is not developed, sponsored, endorsed, or officially affiliated with WiiM or any music streaming service.</p>
+<p>This document describes the reviewed application behavior and is not a guarantee of complete security, compatibility, or legal compliance.</p><footer><nav aria-label="Documentation"><a href="privacy.html">Privacy</a> · <a href="permissions.html">Permissions</a> · <a href="technical-notes.html">Technical notes</a> · <a href="disclaimer.html">Disclaimer</a></nav></footer></main></body></html>
