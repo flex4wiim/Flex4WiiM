@@ -1,10 +1,10 @@
-# Flex4WiiM
+Flex4WiiM
 
 An independent Android controller for WiiM devices.
 
 Flex4WiiM brings device selection, saved groups, playback controls and scenes together in one interface. It is designed to complement WiiM Home and make everyday listening setups easier to manage.
 
-## Main features
+Main features
 
 - One-tap device and group switching — Select an individual device or switch to a saved group configuration with a single tap.
 - App-managed stereo pairs — Create a stereo pair with left/right channel assignments and linked volume. These pairs can also be included in larger groups.
@@ -20,24 +20,29 @@ Optional home-theater features include automatic monitoring and separate followe
 
 The app also includes many other features, described in the user guide.
 
-## Requirements
+Requirements
 
 - Android 9 or later.
 - WiiM devices reachable on the same local network.
 
 Available controls depend on the device model, firmware and playback source. App-managed stereo pairs are a Flex4WiiM feature, distinct from WiiM Home’s native stereo-pair setup.
 
-## Download and user guide
+Download and user guide
 
 The public APK release is being prepared. Once available, downloads will be provided through this repository’s Releases page.
 
 The user guide includes installation instructions and detailed explanations of the app’s features.
 
-User guide: https://flex4wiim.github.io/Flex4WiiM/
+"User Guide (v1.1.39)" (https://flex4wiim.github.io/Flex4WiiM/)
 
-Privacy policy: [link to be added]
+Documentation
 
-## Feedback
+- "Privacy Policy" (https://flex4wiim.github.io/Flex4WiiM/privacy.html)
+- "Permissions" (https://flex4wiim.github.io/Flex4WiiM/permissions.html)
+- "Technical Notes" (https://flex4wiim.github.io/Flex4WiiM/technical-notes.html)
+- "Disclaimer" (https://flex4wiim.github.io/Flex4WiiM/disclaimer.html)
+
+Feedback
 
 Questions, suggestions and issue reports are welcome in the WiiM Community Forum thread.
 
