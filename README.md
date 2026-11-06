@@ -6,7 +6,7 @@ Flex4WiiM brings device selection, saved groups, playback controls and scenes to
 
 Main features
 
-- F4W Presets (Beta): Create your own device or group presets with input, output, EQ and volume settings. In addition to the WiiM presets, you can add up to 24 custom preset buttons.
+- Multi-Preset (Beta): Create your own device or group presets with input, output, EQ and volume settings. In addition to the WiiM presets, you can add up to 24 custom preset buttons.
 - Actions (Beta): This is a new feature that allows you to run multiple presets simultaneously. Run WiiM and F4W presets in your chosen order, across the same or different devices and groups. Actions can be enabled in Settings.
 - One-tap device and group switching — Select an individual device or switch to a saved group configuration with a single tap.
 - App-managed stereo pairs — Create a stereo pair with left/right channel assignments and linked volume. These pairs can also be included in larger groups.
